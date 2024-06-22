@@ -23,28 +23,14 @@ window.onscroll = () => {
     })
 }
 
-// menuIcon.onclick = () => {
-//     menuIcon.classList.toggle('bx-x');
-//     navbar.classList.toggle('active');
-// }
-
-// menuIcon.addEventListener('click', () => {    
-//     menuIcon.classList.toggle('bx-x');
-//     navbar.classList.toggle('active');
-// })
-
-// console.log("Menu icon element:", menuIcon);
-// menuIcon.addEventListener('click', () => {    
-//     console.log("Menu icon clicked");
-//     menuIcon.classList.toggle('bx-x');
-//     navbar.classList.toggle('active');
-// });
-
 document.getElementById('menu-icon').addEventListener('click', function() {
     var navbar = document.querySelector('.navbar');
+    var menuIcon = document.querySelector('#menu-icon');
     if (navbar.style.display === 'block') {
+        menuIcon.classList.toggle('bx-x')
         navbar.style.display = 'none';
     } else {
+        menuIcon.classList.toggle('bx-x')
         navbar.style.display = 'block';
     }
 });
