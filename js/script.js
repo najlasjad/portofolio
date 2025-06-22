@@ -1,7 +1,6 @@
 "use strict";
 var _a;
-document.addEventListener('DOMContentLoaded', (event) => {
-});
+document.addEventListener('DOMContentLoaded', (event) => {});
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 let sections = document.querySelectorAll('section');
@@ -14,63 +13,89 @@ window.onscroll = () => {
         let id = sec.getAttribute('id');
         if (top >= offset && top < offset + height) {
             navLinks.forEach(links => {
-                links.classList.remove('active');
+                links
+                    .classList
+                    .remove('active');
                 const activeLink = document.querySelector('header nav a[href*="' + id + '"]');
-                activeLink === null || activeLink === void 0 ? void 0 : activeLink.classList.add('active'); // Optional chaining to avoid null reference
+                activeLink === null || activeLink === void 0
+                    ? void 0
+                    : activeLink
+                        .classList
+                        .add('active'); // Optional chaining to avoid null reference
             });
         }
     });
 };
-(_a = document.getElementById('menu-icon')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', function () {
-    var navbar = document.querySelector('.navbar');
-    var menuIcon = document.querySelector('#menu-icon');
-    if (navbar && menuIcon) { // Check if navbar and menuIcon are not null
-        if (navbar.style.display === 'block') {
-            menuIcon.classList.toggle('bx-x');
-            navbar.style.display = 'none';
+(_a = document.getElementById('menu-icon')) === null || _a === void 0
+    ? void 0
+    : _a.addEventListener('click', function () {
+        var navbar = document.querySelector('.navbar');
+        var menuIcon = document.querySelector('#menu-icon');
+        if (navbar && menuIcon) { // Check if navbar and menuIcon are not null
+            if (navbar.style.display === 'block') {
+                menuIcon
+                    .classList
+                    .toggle('bx-x');
+                navbar.style.display = 'none';
+            } else {
+                menuIcon
+                    .classList
+                    .toggle('bx-x');
+                navbar.style.display = 'block';
+            }
         }
-        else {
-            menuIcon.classList.toggle('bx-x');
-            navbar.style.display = 'block';
-        }
-    }
-});
-document.addEventListener('DOMContentLoaded', (event) => {
-    const form = document.querySelector('form');
-    form === null || form === void 0 ? void 0 : form.addEventListener('submit', (event) => {
-        var _a, _b, _c, _d, _e;
-        event.preventDefault(); // Prevent form submission for validation
-        const fullName = (((_a = document.querySelector('input[placeholder="Full Name"]')) === null || _a === void 0 ? void 0 : _a.value) || '').trim();
-        const email = (((_b = document.querySelector('input[placeholder="Email"]')) === null || _b === void 0 ? void 0 : _b.value) || '').trim();
-        const phoneNumber = (((_c = document.querySelector('input[placeholder="Phone Number"]')) === null || _c === void 0 ? void 0 : _c.value) || '').trim();
-        const subject = (((_d = document.querySelector('input[placeholder="Subject"]')) === null || _d === void 0 ? void 0 : _d.value) || '').trim();
-        const message = (((_e = document.querySelector('textarea[placeholder="Your Message"]')) === null || _e === void 0 ? void 0 : _e.value) || '').trim();
-        // Validation checks
-        if (!fullName) {
-            alert('Full Name is required.');
-            return;
-        }
-        if (!email || !validateEmail(email)) {
-            alert('Please enter a valid Email.');
-            return;
-        }
-        if (!phoneNumber) {
-            alert('Phone Number is required.');
-            return;
-        }
-        if (!subject) {
-            alert('Subject is required.');
-            return;
-        }
-        if (!message) {
-            alert('Message is required.');
-            return;
-        }
-        // If all validations pass, you can submit the form or perform further actions
-        form.submit(); // Uncomment this line to allow form submission
     });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contact-form");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const fullName = form.querySelector('input[name="name"]').value.trim();
+        const email = form.querySelector('input[name="email_id"]').value.trim();
+        const phone = form.querySelector('input[name="phone"]').value.trim();
+        const subject = form.querySelector('input[name="subject"]').value.trim();
+        const message = form.querySelector('textarea[name="message"]').value.trim();
+
+        // Basic validation
+        if (!fullName || !email || !phone || !subject || !message) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        // Tambahkan waktu sekarang (format: YYYY-MM-DD HH:mm:ss)
+        const now = new Date();
+        const timeString = now.toLocaleString("en-GB", {
+            timeZone: "Asia/Jakarta", 
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        }).replace(',', '');
+
+        document.getElementById("sent_time").value = timeString;
+
+        // Send form using EmailJS
+        emailjs.sendForm("service_ylqh0mj", "template_ajrqimm", form)
+            .then(() => {
+                alert("Message sent successfully!");
+                form.reset();
+            }, (error) => {
+                alert("Failed to send message. Please try again.");
+                console.log("EmailJS error:", error);
+            });
+    });
+
     function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
 });
