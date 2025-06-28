@@ -497,6 +497,23 @@ list ul, li{
     color: black;
 }
 
+.rotate-img:hover {
+    animation: rotate-swing 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes rotate-swing {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(-5deg);
+    }
+}
+
+
 .contact{
     background-color: var(--bg-color);
 }
