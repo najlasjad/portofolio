@@ -462,12 +462,21 @@ list ul, li{
     transition: 0.3s ease-in-out;
 }
 
+.project .btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+}
+
+
 .project.card:hover{
     transform: scale(1.05);
 }
 
 .project h3{
     font-size: 35px;
+    text-align: start;
 }
 
 .project img{
