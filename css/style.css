@@ -663,6 +663,13 @@ input[type="number"] {
         left: 0;
     }
 
+    .certificate img{
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
     .contact form{
         flex-direction: column;
     }
